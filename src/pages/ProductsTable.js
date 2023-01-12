@@ -1,4 +1,4 @@
-import Table from "../components/Table";
+import SortableTable from "../components/SortableTable";
 // import getProducts from "../apis/products";
 
 function ProductsTable() {
@@ -59,11 +59,13 @@ const data = [
         },
         {
             label: "Περιγραφή",
-            render: (product) => product.description
+            render: (product) => product.description,
+            sortValue: (product) => product.description
         },
         {
             label: "Απόθεμα",
-            render: (product) => product.availableQuantity
+            render: (product) => product.availableQuantity,
+            sortValue: (product) => product.availableQuantity
         },
         {
             label: "Ημ.Λήξης",
@@ -90,7 +92,7 @@ const data = [
 
     return (
         <div>
-            <Table data={data} config={config} keyFn={keyFn} />
+            <SortableTable data={data} config={config} keyFn={keyFn} />
         </div>
     );
 }
