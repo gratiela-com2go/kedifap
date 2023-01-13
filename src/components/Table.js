@@ -23,7 +23,7 @@ function Table({data, config, keyFn}) {
     });
 
     return (
-        <table className="table-auto shadow-xl">
+        <table className="table-auto w-full shadow-xl">
             <thead>
                 <tr className="shadow-lg">
                     {renderedHeaders}
