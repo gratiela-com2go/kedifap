@@ -1,24 +1,30 @@
-import { useTable, useSortBy } from "react-table";
+import { useTable, useSortBy, useGlobalFilter } from "react-table";
 import DATA from './data.json';
 import { COLUMNS } from './columns';
 import { useMemo } from "react";
 import { GoArrowSmallDown, GoArrowSmallUp } from 'react-icons/go';
+import { GlobalFilter } from "./GlobalFilter";
 
 export const DataTable = () => {
     const columns = useMemo(() => COLUMNS, []);
     const data = useMemo(() => DATA, []);
 
-    const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = useTable({
+    const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow, state, setGlobalFilter } = useTable({
         columns,
         data
-    },
-    useSortBy);
+    }, useGlobalFilter,useSortBy);
+
+    const { globalFilter} = state;
 
     return (
+        <>
+        <div className="pt-2 pb-6">
+            <GlobalFilter filter={globalFilter} setFilter = {setGlobalFilter} />
+        </div>
         <table {...getTableProps()} className="table-auto w-full shadow-xl">
             <thead>
                 {headerGroups.map((headerGroup) => (
-                     <tr {...headerGroup.getHeaderGroupProps()} className="shadow-lg">
+                    <tr {...headerGroup.getHeaderGroupProps()} className="shadow-lg">
                         {headerGroup.headers.map((column) => (
                             <th {...column.getHeaderProps(column.getSortByToggleProps())} className="cursor-pointer hover:bg-grey-100">
                                 <div className="flex items-center justify-between px-2">
@@ -45,5 +51,6 @@ export const DataTable = () => {
 
             </tbody>
         </table>
+        </>
     );
 }

@@ -1,3 +1,5 @@
+import { format } from "date-fns";
+
 export const COLUMNS = [
     {
         Header: 'Κωδικός',
@@ -13,7 +15,8 @@ export const COLUMNS = [
     },
     {
         Header: "Ημ.Λήξης",
-        accessor: 'expiryDate'
+        accessor: 'expiryDate',
+        Cell: ({value}) => { return format(new Date(value), 'dd/MM/yyyy')}
     },
     {
         Header: "ΧΤ",
