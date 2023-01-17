@@ -2,7 +2,7 @@ import { useMemo } from "react";
 import { useTable, useSortBy, useGlobalFilter, usePagination } from "react-table";
 import DATA from './data.json';
 import { COLUMNS } from './columns';
-import { GoArrowSmallDown, GoArrowSmallUp } from 'react-icons/go';
+import { GoArrowSmallDown, GoArrowSmallUp, GoQuestion } from 'react-icons/go';
 import { GlobalFilter } from "./GlobalFilter";
 
 export const DataTable = () => {
@@ -74,8 +74,8 @@ export const DataTable = () => {
 
             </tbody>
         </table>
-        <div className="my-6 flex items-center justify-between">
-            <span className="flex space-x-3 bg-kedifapgreen-100 rounded-2xl px-4 py-1">
+        <div className="my-10 flex items-center justify-between">
+            <div className="flex space-x-3 bg-kedifapgreen-100 rounded-2xl px-4 py-1">
                 <button onClick={() => gotoPage(0)} disabled={!canPreviousPage}>{'<<'}</button>
                 <button onClick={() => previousPage()} disabled={!canPreviousPage}>Previous</button>                
                 <ul className="flex space-x-2">
@@ -90,7 +90,11 @@ export const DataTable = () => {
                 </ul>
                 <button onClick={() => nextPage()} disabled={!canNextPage}>Next</button>
                 <button onClick={() => gotoPage(pageCount - 1)} disabled={!canNextPage}>{'>>'}</button>
-            </span>
+            </div>
+            <div className="relative flex items-center">
+                <span className="absolute p-4 bg-gray-200 rounded-full left-[-30px]"><GoQuestion className="text-gray-500" /></span>
+                <button className="bg-gray-200 px-5 py-1 rounded-2xl shadow-lg">Βοήθεια...</button>
+            </div>
         </div>
         </>
     );
