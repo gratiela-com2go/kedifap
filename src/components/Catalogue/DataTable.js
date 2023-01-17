@@ -1,7 +1,7 @@
-import { useTable, useSortBy, useGlobalFilter } from "react-table";
+import { useMemo } from "react";
+import { useTable, useSortBy, useGlobalFilter, usePagination } from "react-table";
 import DATA from './data.json';
 import { COLUMNS } from './columns';
-import { useMemo } from "react";
 import { GoArrowSmallDown, GoArrowSmallUp } from 'react-icons/go';
 import { GlobalFilter } from "./GlobalFilter";
 
@@ -9,12 +9,35 @@ export const DataTable = () => {
     const columns = useMemo(() => COLUMNS, []);
     const data = useMemo(() => DATA, []);
 
-    const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow, state, setGlobalFilter } = useTable({
-        columns,
-        data
-    }, useGlobalFilter,useSortBy);
+    const { 
+        getTableProps, 
+        getTableBodyProps, 
+        headerGroups, 
+        page, 
+        nextPage, 
+        previousPage, 
+        canNextPage, 
+        canPreviousPage, 
+        pageOptions,
+        gotoPage,
+        pageCount,
+        prepareRow, 
+        state, 
+        setGlobalFilter 
+    } = useTable({
+            columns,
+            data,
+            initialState: { pageIndex: 0, pageSize: 10 },
+        }, 
+        useGlobalFilter, 
+        useSortBy, 
+        usePagination);
 
-    const { globalFilter} = state;
+    const { globalFilter, pageIndex} = state;
+
+    let start = Math.max(0, pageIndex-5)
+    let end = Math.min(pageCount, start+6)
+    let pageNumbers = Array.from({ length: end-start }, (_, i) => i + start+1)
 
     return (
         <>
@@ -38,7 +61,7 @@ export const DataTable = () => {
                 ))}
             </thead>
             <tbody {...getTableBodyProps()}>
-                {rows.map((row) => {
+                {page.map((row) => {
                     prepareRow(row);
                     return (
                         <tr {...row.getRowProps()}>
@@ -51,6 +74,24 @@ export const DataTable = () => {
 
             </tbody>
         </table>
+        <div className="my-6 flex items-center justify-between">
+            <span className="flex space-x-3 bg-kedifapgreen-100 rounded-2xl px-4 py-1">
+                <button onClick={() => gotoPage(0)} disabled={!canPreviousPage}>{'<<'}</button>
+                <button onClick={() => previousPage()} disabled={!canPreviousPage}>Previous</button>                
+                <ul className="flex space-x-2">
+                    {pageNumbers.map(number => (
+                        <li key={number}>
+                            <button onClick={() => gotoPage(number - 1)} className={`${(number-1) === pageIndex ? 'bg-kedifapgreen-200 rounded text-white px-2':''}`}>{number}</button>
+                        </li>
+                    ))}
+                    <li>...
+                        <button onClick={() => gotoPage(pageOptions.length-1)}>{pageOptions.length}</button>
+                    </li>
+                </ul>
+                <button onClick={() => nextPage()} disabled={!canNextPage}>Next</button>
+                <button onClick={() => gotoPage(pageCount - 1)} disabled={!canNextPage}>{'>>'}</button>
+            </span>
+        </div>
         </>
     );
 }
