@@ -23,7 +23,8 @@ export const DataTable = () => {
         pageCount,
         prepareRow, 
         state, 
-        setGlobalFilter 
+        setGlobalFilter,
+        allColumns
     } = useTable({
             columns,
             data,
@@ -43,6 +44,19 @@ export const DataTable = () => {
         <>
         <div className="pt-2 pb-6">
             <GlobalFilter filter={globalFilter} setFilter = {setGlobalFilter} />
+        </div>
+        <div className="flex pb-4 gap-x-4 items-center">
+            <span>Προβολή Στηλών: </span>  
+            {
+                allColumns.map(column =>(
+                    <div key={column.id}>
+                        <label>
+                            <input type="checkbox" {...column.getToggleHiddenProps()} />
+                            {column.Header}
+                        </label>
+                    </div>
+                ))
+            }
         </div>
         <table {...getTableProps()} className="table-auto w-full shadow-xl">
             <thead>
