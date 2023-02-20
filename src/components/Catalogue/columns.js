@@ -3,7 +3,7 @@ import { format } from "date-fns";
 export const COLUMNS = [
     {
         Header: 'Κωδικός',
-        accessor: 'code'
+        accessor: 'code',
     },
     {
         Header: "Περιγραφή",
@@ -11,19 +11,23 @@ export const COLUMNS = [
     },
     {
         Header: "Απόθεμα",
-        accessor: 'availableQuantity'
+        accessor: 'availableQuantity',
+        disableGlobalFilter: true
     },
     {
         Header: "Ημ.Λήξης",
         accessor: 'expiryDate',
-        Cell: ({value}) => { return format(new Date(value), 'dd/MM/yyyy')}
+        Cell: ({value}) => { return format(new Date(value), 'dd/MM/yyyy')},
+        disableGlobalFilter: true
     },
     {
         Header: "ΧΤ",
-        accessor: 'wholeSalePrice'
+        accessor: 'wholeSalePrice',
+        disableGlobalFilter: true
     },
     {
         Header: "ΛΤ",
-        accessor: 'retailPrice'
+        accessor: 'retailPrice',
+        disableGlobalFilter: true
     },
 ];
