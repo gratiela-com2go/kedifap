@@ -51,12 +51,12 @@ export const DataTable = () => {
     prepareRow,
     state,
     setGlobalFilter,
-    allColumns,
+    visibleColumns,
   } = useTable(
     {
       columns,
       data,
-      initialState: { pageIndex: 0, pageSize: 10 },
+      initialState: { pageIndex: 0, pageSize: 10, hiddenColumns: [] },
     },
     useGlobalFilter,
     useSortBy,
@@ -80,7 +80,7 @@ export const DataTable = () => {
       </div>
       <div className="flex pb-4 gap-x-4 items-center">
         <span>Προβολή Στηλών: </span>
-        {allColumns.map((column) => (
+        {visibleColumns.map((column) => (
           <div key={column.id}>
             <label>
               <input type="checkbox" {...column.getToggleHiddenProps()} />

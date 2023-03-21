@@ -20,7 +20,7 @@ export default function Navbar() {
                             <Link to='/orders'>Παραγγελίες</Link>
                         </li>
                         <li>
-                            <Link to='/general-information'>Σχετικά      </Link>
+                            <Link to='/general-information'>Σχετικά</Link>
                         </li>
                         <li>
                             <Link to='/contact'>Επικοινωνία</Link>
