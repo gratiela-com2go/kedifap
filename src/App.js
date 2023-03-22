@@ -7,18 +7,33 @@ import Orders from "./pages/Orders";
 import Profile from "./pages/Profile";
 import Navbar from "./components/Navbar";
 
-const router = createBrowserRouter(
-  createRoutesFromElements(
-    <Route element={<Navbar />}>
-      <Route path="/" element={<Home />} />
-      <Route path="/catalogue" element={<ProductsTable />} />
-      <Route path="/orders" element={<Orders />} />
-      <Route path="/general-information" element={<Information />} />
-      <Route path="/contact" element={<Contact />} />
-      <Route path="/profile" element={<Profile />} />
-    </Route>
-  )
-)
+// const router = createBrowserRouter(
+//   createRoutesFromElements(
+//     <Route element={<Navbar />}>
+//       <Route path="/" element={<Home />} />
+//       <Route path="/catalogue" element={<ProductsTable />} />
+//       <Route path="/orders" element={<Orders />} />
+//       <Route path="/general-information" element={<Information />} />
+//       <Route path="/contact" element={<Contact />} />
+//       <Route path="/profile" element={<Profile />} />
+//     </Route>
+//   )
+// );
+
+createRoutesFromElements(
+  <Route element={<Navbar />}>
+    <Route path="/" element={<Home />} />
+    <Route path="/catalogue" element={<ProductsTable />} />
+    <Route path="/orders" element={<Orders />} />
+    <Route path="/general-information" element={<Information />} />
+    <Route path="/contact" element={<Contact />} />
+    <Route path="/profile" element={<Profile />} />
+  </Route>
+),
+{
+  basename: "/portal-site",
+}
+);
 
 function App() {
   return (
