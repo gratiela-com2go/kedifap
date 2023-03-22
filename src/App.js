@@ -19,20 +19,20 @@ import Navbar from "./components/Navbar";
 //     </Route>
 //   )
 // );
-
-createRoutesFromElements(
-  <Route element={<Navbar />}>
-    <Route path="/" element={<Home />} />
-    <Route path="/catalogue" element={<ProductsTable />} />
-    <Route path="/orders" element={<Orders />} />
-    <Route path="/general-information" element={<Information />} />
-    <Route path="/contact" element={<Contact />} />
-    <Route path="/profile" element={<Profile />} />
-  </Route>
-),
-{
-  basename: "/portal-site",
-}
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route element={<Navbar />}>
+      <Route path="/" element={<Home />} />
+      <Route path="/catalogue" element={<ProductsTable />} />
+      <Route path="/orders" element={<Orders />} />
+      <Route path="/general-information" element={<Information />} />
+      <Route path="/contact" element={<Contact />} />
+      <Route path="/profile" element={<Profile />} />
+    </Route>
+  ),
+  {
+    basename: "/portal-site",
+  }
 );
 
 function App() {
